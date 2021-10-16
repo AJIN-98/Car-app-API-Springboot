@@ -1,9 +1,14 @@
 package com.ust.model;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 public class FavouriteProduct {
 
+@Id
+@GeneratedValue(strategy = GenerationType.AUTO)
 @Column(name="product-id")
 private int productId;
 @Column(name="product-name")

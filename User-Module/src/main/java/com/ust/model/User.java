@@ -34,6 +34,16 @@ public class User {
 	}
 
 
+	public int getUserId() {
+		return userId;
+	}
+
+
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+
+
 	public String getUsername() {
 		return username;
 	}
@@ -62,5 +72,8 @@ public class User {
 	public void setPassword(String password) {
 		Password = password;
 	}
+
+
+	
 	
 }
