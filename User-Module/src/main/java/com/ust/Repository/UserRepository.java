@@ -8,5 +8,5 @@ import com.ust.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,String> {
 
-	public User getByUserid(int Id);
+	public User getByUserId(int Id);
 }

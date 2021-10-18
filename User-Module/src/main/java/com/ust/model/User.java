@@ -13,24 +13,29 @@ public class User {
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name="user-id")
 	private int userId;
-	@Column(name="user-name")
 	@NotNull
 	private String username;
-	@Column(name="gmail-address")
 	@NotNull
 	private String gmail;
-	@Column(name="user-password")
 	@NotNull
 	private String Password;
+	@NotNull
+	private String Address;
 	
 	
-	public User(int userId, String username, String gmail, String password) {
+	public User() {
+		super();
+	}
+
+
+	public User(int userId, String username, String gmail, String password, String address) {
+		super();
 		this.userId = userId;
 		this.username = username;
 		this.gmail = gmail;
 		Password = password;
+		Address = address;
 	}
 
 
@@ -74,6 +79,17 @@ public class User {
 	}
 
 
+	public String getAddress() {
+		return Address;
+	}
+
+
+	public void setAddress(String address) {
+		Address = address;
+	}
+	
+	
+	
 	
 	
 }

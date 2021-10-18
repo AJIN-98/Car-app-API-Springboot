@@ -50,7 +50,6 @@
 	</build>
 	<modules>
 		<module>User-Module</module>
-		<module>Admin-Module</module>
 		<module>Car-Collection-Module</module>
 		<module>Booking-Module</module>
 	</modules>

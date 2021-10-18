@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ust.Exceptions.VehicleNotFoundException;
 import com.ust.model.Vehicle;
 import com.ust.repository.VehicleRepository;
 
@@ -28,8 +29,9 @@ public class VehicleServiceImpl implements VehicleService {
 	}
 
 	@Override
-	public Vehicle updateVehicle(Vehicle vehicle) {
-		Vehicle v = repo.GetByVehicleId(vehicle.getVehicleId());
+	public Vehicle updateVehicle(Vehicle vehicle) throws VehicleNotFoundException{
+		
+		Vehicle v = repo.getByVehicleId(vehicle.getVehicleId());
 		if(v!=null) {
 			v.setName(vehicle.getName());
 			v.setCategory(vehicle.getCategory());
@@ -40,13 +42,13 @@ public class VehicleServiceImpl implements VehicleService {
 			return v;
 			
 		}
-		return v;
+		throw new VehicleNotFoundException("vehicle not found");
 	}
 
 	@Override
 	public boolean deleteVehicle(int id) {
 		try {
-			repo.deleteByVehicleId(id);
+			repo.deleteById(id);
 			return true;
 		} catch (Exception e) {
 			return false;
