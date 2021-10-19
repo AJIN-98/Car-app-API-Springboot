@@ -3,6 +3,7 @@ package com.ust.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.ust.Exception.userNotFoundException;
 import com.ust.Repository.UserRepository;
 //import com.ust.model.FavouriteProduct;
 import com.ust.model.User;
@@ -35,6 +36,18 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
+	
+	public boolean validate(User user) throws userNotFoundException {
+		try {
+		User c = repo.findByUserNameAndPassword(user.getUsername(), user.getPassword());
+		if(c!=null) {
+			return true;
+		}
+		return false;
+		}
+		catch(Exception e) {
+			throw new userNotFoundException("user not found");
+	}}
 
 //	@Override
 //	public FavouriteProduct addtoFavourite(FavouriteProduct product) {

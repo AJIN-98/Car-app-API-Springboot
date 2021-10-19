@@ -9,4 +9,5 @@ import com.ust.model.User;
 public interface UserRepository extends JpaRepository<User,String> {
 
 	public User getByUserId(int Id);
+	public User findByUserNameAndPassword(String name,String password);
 }
