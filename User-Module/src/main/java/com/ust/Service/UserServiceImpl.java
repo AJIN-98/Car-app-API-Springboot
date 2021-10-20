@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
 	
 	public boolean validate(User user) throws userNotFoundException {
 		try {
-		User c = repo.findByUserNameAndPassword(user.getUsername(), user.getPassword());
+		User c = repo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
 		if(c!=null) {
 			return true;
 		}
