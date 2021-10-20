@@ -13,7 +13,7 @@ import com.ust.repository.VehicleRepository;
 
 @Service
 public class VehicleServiceImpl implements VehicleService {
-	
+
 	@Autowired
 	VehicleRepository repo;
 
@@ -25,14 +25,14 @@ public class VehicleServiceImpl implements VehicleService {
 		} catch (Exception e) {
 			return false;
 		}
-		
+
 	}
 
 	@Override
-	public Vehicle updateVehicle(Vehicle vehicle) throws VehicleNotFoundException{
-		
+	public Vehicle updateVehicle(Vehicle vehicle) throws VehicleNotFoundException {
+
 		Vehicle v = repo.getByVehicleId(vehicle.getVehicleId());
-		if(v!=null) {
+		if (v != null) {
 			v.setName(vehicle.getName());
 			v.setCategory(vehicle.getCategory());
 			v.setModel(vehicle.getModel());
@@ -40,7 +40,7 @@ public class VehicleServiceImpl implements VehicleService {
 			v.setDetails(vehicle.getDetails());
 			repo.save(v);
 			return v;
-			
+
 		}
 		throw new VehicleNotFoundException("vehicle not found");
 	}
@@ -57,8 +57,8 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public List<Vehicle> sortByPrice() {
-		List<Vehicle> list=repo.findAll();
-		list=list.stream().sorted(Comparator.comparing(Vehicle::getPrice)).collect(Collectors.toList());
+		List<Vehicle> list = repo.findAll();
+		list = list.stream().sorted(Comparator.comparing(Vehicle::getPrice)).collect(Collectors.toList());
 		return list;
 	}
 

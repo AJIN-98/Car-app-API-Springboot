@@ -10,14 +10,14 @@ import com.ust.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserRepository repo;
 
 	@Override
 	public boolean userRegisteration(User user) {
-		User status=repo.getByUserId(user.getUserId());
-		if(status==null) {
+		User status = repo.getByUserId(user.getUserId());
+		if (status == null) {
 			repo.save(user);
 			return true;
 		}
@@ -26,8 +26,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean updateUser(User user) {
-		User status=repo.getByUserId(user.getUserId());
-		if(status!=null) {
+		User status = repo.getByUserId(user.getUserId());
+		if (status != null) {
 			status.setUsername(user.getUsername());
 			status.setPassword(user.getPassword());
 			status.setGmail(user.getGmail());
@@ -36,18 +36,18 @@ public class UserServiceImpl implements UserService {
 		}
 		return false;
 	}
-	
+
 	public boolean validate(User user) throws userNotFoundException {
 		try {
-		User c = repo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
-		if(c!=null) {
-			return true;
-		}
-		return false;
-		}
-		catch(Exception e) {
+			User c = repo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+			if (c != null) {
+				return true;
+			}
+			return false;
+		} catch (Exception e) {
 			throw new userNotFoundException("user not found");
-	}}
+		}
+	}
 
 //	@Override
 //	public FavouriteProduct addtoFavourite(FavouriteProduct product) {

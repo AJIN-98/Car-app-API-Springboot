@@ -18,35 +18,35 @@ public class BookingController {
 
 	@Autowired
 	BookingService service;
-	
+
 	@PostMapping("booking/init")
-	public ResponseEntity<?> initbooking(@RequestBody Booking booking){
-		
+	public ResponseEntity<?> initbooking(@RequestBody Booking booking) {
+
 		try {
 			service.createBooking(booking);
-			return new ResponseEntity<String>("order placed!",HttpStatus.CREATED);
+			return new ResponseEntity<String>("order placed!", HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<String>("booking failed",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("booking failed", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@PutMapping("booking/update")
-	public ResponseEntity<?> updateBooking(@RequestBody Booking booking){
+	public ResponseEntity<?> updateBooking(@RequestBody Booking booking) {
 		try {
 			service.updateBooking(booking);
-			return new ResponseEntity<String>("booking updated",HttpStatus.CREATED);
+			return new ResponseEntity<String>("booking updated", HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<String>("can't update right now !",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("can't update right now !", HttpStatus.BAD_REQUEST);
 		}
 	}
-	
+
 	@DeleteMapping("booking/cancel/{id}")
-	public ResponseEntity<?> ordercancel(@PathVariable int id){
+	public ResponseEntity<?> ordercancel(@PathVariable int id) {
 		try {
 			service.deleteBooking(id);
-			return new ResponseEntity<String>("order cancelled",HttpStatus.OK);
+			return new ResponseEntity<String>("order cancelled", HttpStatus.OK);
 		} catch (Exception e) {
-			return new ResponseEntity<String>("error!",HttpStatus.BAD_REQUEST);
+			return new ResponseEntity<String>("error!", HttpStatus.BAD_REQUEST);
 		}
 	}
 }

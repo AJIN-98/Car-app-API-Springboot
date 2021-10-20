@@ -24,9 +24,12 @@ public class Booking {
 	@NotNull
 	private String status;
 
-	public Booking(int bookingId, int userId, int carId, String carName, String carDetails, String status) {
+	public Booking() {
 		super();
-		this.bookingId = bookingId;
+	}
+
+	public Booking(int userId, int carId, String carName, String carDetails, String status) {
+		super();
 		this.userId = userId;
 		this.carId = carId;
 		this.carName = carName;
@@ -38,9 +41,6 @@ public class Booking {
 		return bookingId;
 	}
 
-//public void setBookingId(int bookingId) {
-//	this.bookingId = bookingId;
-//}
 	public int getUserId() {
 		return userId;
 	}

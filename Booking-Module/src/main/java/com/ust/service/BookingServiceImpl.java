@@ -9,9 +9,8 @@ import com.ust.model.Booking;
 @Service
 public class BookingServiceImpl implements BookingService {
 
-	
-@Autowired
-BookingRepository repo;
+	@Autowired
+	BookingRepository repo;
 
 	@Override
 	public boolean createBooking(Booking booking) {
@@ -25,26 +24,23 @@ BookingRepository repo;
 
 	@Override
 	public boolean updateBooking(Booking booking) {
-		try {
-			Booking v = repo.getById(booking.getBookingId());
-			if(v!=null) {
-				v.setCarId(booking.getCarId());
-				v.setStatus(booking.getStatus());
-				v.setUserId(booking.getUserId());
-				repo.save(v);
-				return true;
-				
-			}
-			return false;
-		} catch (Exception e) {
-			return false;
+
+		Booking v = repo.getByBookingId(booking.getBookingId());
+		if (v != null) {
+			v.setCarId(booking.getCarId());
+			v.setStatus(booking.getStatus());
+			v.setUserId(booking.getUserId());
+			repo.save(v);
+			return true;
 		}
-}
-	
+		return false;
+
+	}
+
 	@Override
 	public boolean deleteBooking(int id) {
-		Booking v = repo.getById(id);
-		if(v!=null) {
+		Booking v = repo.getByBookingId(id);
+		if (v != null) {
 			repo.deleteById(id);
 			return true;
 		}

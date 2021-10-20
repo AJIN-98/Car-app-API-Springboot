@@ -7,5 +7,5 @@ import com.ust.model.Booking;
 
 @Repository
 public interface BookingRepository extends JpaRepository<Booking, Integer> {
-
+	Booking getByBookingId(int id);
 }

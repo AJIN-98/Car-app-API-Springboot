@@ -21,8 +21,6 @@ public class User {
 	private String password;
 	@NotNull
 	private String address;
-	
-	
 
 	public User(int userId, String username, String gmail, String password, String address) {
 		super();
