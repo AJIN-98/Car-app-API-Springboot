@@ -22,9 +22,13 @@ public class User {
 	@NotNull
 	private String address;
 
-	public User(int userId, String username, String gmail, String password, String address) {
+	
+	public User() {
 		super();
-		this.userId = userId;
+	}
+
+	public User( String username, String gmail, String password, String address) {
+		super();
 		this.username = username;
 		this.gmail = gmail;
 		this.password = password;

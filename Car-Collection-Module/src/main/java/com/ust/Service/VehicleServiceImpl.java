@@ -47,12 +47,12 @@ public class VehicleServiceImpl implements VehicleService {
 
 	@Override
 	public boolean deleteVehicle(int id) {
-		try {
+		Vehicle v =repo.getByVehicleId(id);
+		if(v.getVehicleId()==id) {
 			repo.deleteById(id);
 			return true;
-		} catch (Exception e) {
+		} 
 			return false;
-		}
 	}
 
 	@Override
