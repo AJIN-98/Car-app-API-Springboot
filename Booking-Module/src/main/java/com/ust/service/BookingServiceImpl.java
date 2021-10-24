@@ -39,12 +39,14 @@ public class BookingServiceImpl implements BookingService {
 
 	@Override
 	public boolean deleteBooking(int id) {
+		
 		Booking v = repo.getByBookingId(id);
 		if (v.getBookingId()==id) {
 			repo.deleteById(id);
 			return true;
 		}
-		return false;
-	}
+			return false;
+		}
 
-}
+		
+	}

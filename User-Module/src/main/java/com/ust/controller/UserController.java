@@ -105,7 +105,16 @@ public class UserController {
 			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
 		}
 	}
-
+	
+	@DeleteMapping("/user/booking/delete/{id}")
+	public ResponseEntity<String> cancelBooking(@PathVariable int id){
+		try {
+			service.cancelOrder(id);
+			return new ResponseEntity<String>("order cancelled !",HttpStatus.CREATED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
+		}
+	}
 	private String generateToken(String userName) {
 		String token = Jwts.builder().setSubject(userName).setIssuedAt(new Date())
 				.setExpiration(new Date(System.currentTimeMillis() + 200000))

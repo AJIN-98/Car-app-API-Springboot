@@ -43,7 +43,7 @@ public class BookingController {
 	@DeleteMapping("booking/cancel/{id}")
 	public ResponseEntity<?> ordercancel(@PathVariable int id) {
 		try {
-			service.deleteBooking(id);
+			System.out.println(service.deleteBooking(id));
 			return new ResponseEntity<String>("order cancelled", HttpStatus.OK);
 		} catch (Exception e) {
 			return new ResponseEntity<String>("error!", HttpStatus.BAD_REQUEST);

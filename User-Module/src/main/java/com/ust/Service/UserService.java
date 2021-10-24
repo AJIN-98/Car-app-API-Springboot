@@ -11,10 +11,14 @@ public interface UserService {
 
 	public boolean updateUser(User user);
 
-	 public boolean addtoFavourite(Temp temp);
-	 public boolean removeFavourite(int id);
-	 public boolean placeOrder(int prodid);
+	public boolean addtoFavourite(Temp temp);
+
+	public boolean removeFavourite(int id);
+
+	public boolean placeOrder(int prodid);
 
 	public boolean validate(User user) throws userNotFoundException;
+
+	boolean cancelOrder(int favId);
 
 }
