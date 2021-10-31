@@ -14,6 +14,9 @@ import java.util.List;
 import com.ust.Service.VehicleService;
 import com.ust.model.Vehicle;
 
+import io.swagger.annotations.Api;
+
+@Api
 @RestController
 public class VehicleController {
 

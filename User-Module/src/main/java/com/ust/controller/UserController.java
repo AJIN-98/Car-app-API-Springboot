@@ -22,7 +22,9 @@ import com.ust.model.User;
 
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.swagger.annotations.Api;
 
+@Api
 @RestController
 public class UserController {
 
@@ -50,19 +52,16 @@ public class UserController {
 	}
 
 
-	@PostMapping("user/login")
-	public ResponseEntity<?> login(@RequestBody User user, HttpSession session) throws userNotFoundException {
-
-		boolean flag = service.validate(user);
-		ResponseEntity<String> response;
-		if (flag) {
-			session.setAttribute("name", user.getUsername());
-			String jwtToken = generateToken(user.getPassword());
-			response = new ResponseEntity<String>(jwtToken, HttpStatus.OK);
-		} else {
-			response = new ResponseEntity<String>("Failure", HttpStatus.BAD_REQUEST);
+	@PostMapping("/user/login")
+	public ResponseEntity<String> login(@RequestBody User user) {
+		try {
+			service.validate(user);
+			return new ResponseEntity<String>(getToken(user, Integer.toString(user.getUserId()) , user.getPassword()), HttpStatus.OK);
+		} catch (userNotFoundException e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+		} catch (Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 		}
-		return response;
 	}
 
 	@GetMapping("user/logout")
@@ -77,7 +76,7 @@ public class UserController {
 		return response;
 	}
 
-	@PostMapping("/user/addfavourite")
+	@PostMapping("/user/api/addfavourite")
 	public ResponseEntity<String> addFavourite(@RequestBody Temp temp){
 		try {
 			service.addtoFavourite(temp);
@@ -86,7 +85,7 @@ public class UserController {
 			return new ResponseEntity<String>("Failed to add!",HttpStatus.CONFLICT);
 		}
 	}
-	@DeleteMapping("/user/removefavourite/{id}")
+	@DeleteMapping("/user/api/removefavourite/{id}")
 	public ResponseEntity<String> removeFavourite(@PathVariable int id){
 		try {
 			service.removeFavourite(id);
@@ -96,7 +95,7 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/user/booking/{favid}")
+	@PostMapping("/user/api/booking/{favid}")
 	public ResponseEntity<String> booking(@PathVariable int favid){
 		try {
 			service.placeOrder(favid);
@@ -106,7 +105,7 @@ public class UserController {
 		}
 	}
 	
-	@DeleteMapping("/user/booking/delete/{id}")
+	@DeleteMapping("/user/api/booking/delete/{id}")
 	public ResponseEntity<String> cancelBooking(@PathVariable int id){
 		try {
 			service.cancelOrder(id);
@@ -115,12 +114,8 @@ public class UserController {
 			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
 		}
 	}
-	private String generateToken(String userName) {
-		String token = Jwts.builder().setSubject(userName).setIssuedAt(new Date())
-				.setExpiration(new Date(System.currentTimeMillis() + 200000))
-				.signWith(SignatureAlgorithm.HS256, "secretKey").compact();
-		System.out.println("Token " + token);
-		return token;
-
-	}
+	
+	public String getToken(@RequestBody User user, String userId, String userPassword) throws Exception {
+		return Jwts.builder().setId(userId).setSubject(userPassword).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 600000)).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+}
 }

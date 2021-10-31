@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ust.model.Booking;
 import com.ust.service.BookingService;
 
+import io.swagger.annotations.Api;
+
+@Api
 @RestController
 public class BookingController {
 
