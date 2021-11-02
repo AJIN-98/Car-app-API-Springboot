@@ -34,7 +34,7 @@ public class BookingController {
 		}
 	}
 
-	@PutMapping("booking/update/bookingid/{bid}/vehicled/{vid}")
+	@PutMapping("booking/update/bookingid/{bid}/vehicleid/{vid}")
 	public ResponseEntity<?> updateBooking(@PathVariable int bid, @PathVariable int vid) {
 		try {
 			service.updateBooking(bid,vid);
