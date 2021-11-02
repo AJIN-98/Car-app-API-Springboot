@@ -15,10 +15,10 @@ public interface UserService {
 
 	public boolean removeFavourite(int id);
 
-	public boolean placeOrder(int prodid);
+	//public boolean placeOrder(int prodid);
 
 	public boolean validate(User user) throws userNotFoundException;
 
-	boolean cancelOrder(int favId);
+	//boolean cancelOrder(int favId);
 
 }

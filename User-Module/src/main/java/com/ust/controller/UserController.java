@@ -95,25 +95,25 @@ public class UserController {
 		}
 	}
 	
-	@PostMapping("/user/api/booking/{favid}")
-	public ResponseEntity<String> booking(@PathVariable int favid){
-		try {
-			service.placeOrder(favid);
-			return new ResponseEntity<String>("order placed!",HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
-		}
-	}
-	
-	@DeleteMapping("/user/api/booking/delete/{id}")
-	public ResponseEntity<String> cancelBooking(@PathVariable int id){
-		try {
-			service.cancelOrder(id);
-			return new ResponseEntity<String>("order cancelled !",HttpStatus.CREATED);
-		} catch (Exception e) {
-			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
-		}
-	}
+//	@PostMapping("/user/api/booking/{favid}")
+//	public ResponseEntity<String> booking(@PathVariable int favid){
+//		try {
+//			service.placeOrder(favid);
+//			return new ResponseEntity<String>("order placed!",HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
+//		}
+//	}
+//	
+//	@DeleteMapping("/user/api/booking/delete/{id}")
+//	public ResponseEntity<String> cancelBooking(@PathVariable int id){
+//		try {
+//			service.cancelOrder(id);
+//			return new ResponseEntity<String>("order cancelled !",HttpStatus.CREATED);
+//		} catch (Exception e) {
+//			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
+//		}
+//	}
 	
 	public String getToken(@RequestBody User user, String userId, String userPassword) throws Exception {
 		return Jwts.builder().setId(userId).setSubject(userPassword).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 600000)).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
