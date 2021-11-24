@@ -51,17 +51,18 @@ public class UserController {
 		}
 	}
 
-
-	@PostMapping("/user/login")
-	public ResponseEntity<String> login(@RequestBody User user) {
-		try {
-			service.validate(user);
-			return new ResponseEntity<String>(getToken(user, Integer.toString(user.getUserId()) , user.getPassword()), HttpStatus.OK);
-		} catch (userNotFoundException e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
-		} catch (Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+	@PostMapping("user/login")
+	public ResponseEntity<String> login(@RequestBody User user, HttpSession session) throws userNotFoundException {
+		ResponseEntity<String> response;
+		boolean flag = service.validate(user);
+		if (flag) {
+			session.setAttribute("name", user.getUserId());
+			String jwtToken = generateToken(Integer.toString(user.getUserId()));
+			response = new ResponseEntity<String>(jwtToken, HttpStatus.OK);
+		} else {
+			response = new ResponseEntity<String>("Failure", HttpStatus.BAD_REQUEST);
 		}
+		return response;
 	}
 
 	@GetMapping("user/logout")
@@ -77,45 +78,31 @@ public class UserController {
 	}
 
 	@PostMapping("/user/api/addfavourite")
-	public ResponseEntity<String> addFavourite(@RequestBody Temp temp){
+	public ResponseEntity<String> addFavourite(@RequestBody Temp temp) {
 		try {
 			service.addtoFavourite(temp);
-			return new ResponseEntity<String>("added favourite",HttpStatus.CREATED);
+			return new ResponseEntity<String>("added favourite", HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<String>("Failed to add!",HttpStatus.CONFLICT);
+			return new ResponseEntity<String>("Failed to add!", HttpStatus.CONFLICT);
 		}
 	}
+
 	@DeleteMapping("/user/api/removefavourite/{id}")
-	public ResponseEntity<String> removeFavourite(@PathVariable int id){
+	public ResponseEntity<String> removeFavourite(@PathVariable int id) {
 		try {
 			service.removeFavourite(id);
-			return new ResponseEntity<String>("removed from favourite",HttpStatus.CREATED);
+			return new ResponseEntity<String>("removed from favourite", HttpStatus.CREATED);
 		} catch (Exception e) {
-			return new ResponseEntity<String>("id not found!",HttpStatus.CONFLICT);
+			return new ResponseEntity<String>("id not found!", HttpStatus.CONFLICT);
 		}
 	}
-	
-//	@PostMapping("/user/api/booking/{favid}")
-//	public ResponseEntity<String> booking(@PathVariable int favid){
-//		try {
-//			service.placeOrder(favid);
-//			return new ResponseEntity<String>("order placed!",HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
-//		}
-//	}
-//	
-//	@DeleteMapping("/user/api/booking/delete/{id}")
-//	public ResponseEntity<String> cancelBooking(@PathVariable int id){
-//		try {
-//			service.cancelOrder(id);
-//			return new ResponseEntity<String>("order cancelled !",HttpStatus.CREATED);
-//		} catch (Exception e) {
-//			return new ResponseEntity<String>("Failed!",HttpStatus.CONFLICT);
-//		}
-//	}
-	
-	public String getToken(@RequestBody User user, String userId, String userPassword) throws Exception {
-		return Jwts.builder().setId(userId).setSubject(userPassword).setIssuedAt(new Date()).setExpiration(new Date(System.currentTimeMillis() + 600000)).signWith(SignatureAlgorithm.HS256, "secretkey").compact();
-}
+
+	private String generateToken(String userName) {
+		String token = Jwts.builder().setSubject(userName).setIssuedAt(new Date())
+				.setExpiration(new Date(System.currentTimeMillis() + 600000))
+				.signWith(SignatureAlgorithm.HS256, "secretkey").compact();
+		System.out.println("Token " + token);
+		return token;
+
+	}
 }

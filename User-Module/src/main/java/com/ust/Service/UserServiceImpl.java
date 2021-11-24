@@ -33,9 +33,6 @@ public class UserServiceImpl implements UserService {
 	@Autowired
 	VehicleRepository vehiclerepo;
 
-	private String BOOKING_SERVICE_ADD = "http://localhost:8083/booking/init";
-	private String DELETE_SERVICE_ADD = "http://localhost:8083/booking/cancel/";
-
 	@Override
 	public boolean userRegisteration(User user) {
 		try {
@@ -62,7 +59,7 @@ public class UserServiceImpl implements UserService {
 
 	public boolean validate(User user) throws userNotFoundException {
 		try {
-			User c = repo.findByUsernameAndPassword(user.getUsername(), user.getPassword());
+			User c = repo.findByUserIdAndPassword(user.getUserId(), user.getPassword());
 			if (c != null) {
 				return true;
 			}
@@ -98,48 +95,5 @@ public class UserServiceImpl implements UserService {
 		return false;
 	}
 
-//	@Override
-//	public boolean placeOrder(int favId) {
-//		try {
-//			RestTemplate restTemplate = new RestTemplate();
-//			HttpHeaders headers = new HttpHeaders();
-//
-//			headers.setContentType(MediaType.APPLICATION_JSON);
-//			headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-//
-//			FavouriteVehicle fav = favrepo.getByFavId(favId);
-//			String body = "{\"userId\":\"" + fav.getUserId() + "\",\"carId\":\"" + fav.getVehicleId()
-//					+ "\",\"carName\":\"" + fav.getVehicleName() + "\",\"carDetails\":\"" + fav.getVehicleDetails()
-//					+ "\",\"status\":\"" + "active" + "\"}";
-//			HttpEntity<String> requestEntity = new HttpEntity<>(body, headers);
-//
-//			ResponseEntity<String> responseEntity = restTemplate.exchange(BOOKING_SERVICE_ADD, HttpMethod.POST,
-//					requestEntity, String.class);
-//			if (responseEntity.getStatusCode() == HttpStatus.CREATED) {
-//				return true;
-//			}
-//			return false;
-//		} catch (Exception e) {
-//			return false;
-//		}
-//	}
-//
-//	@Override
-//	public boolean cancelOrder(int favId) {
-//		try {
-//			RestTemplate restTemplate = new RestTemplate();
-//			HttpHeaders headers = new HttpHeaders();
-//			HttpEntity<String> requestEntity = new HttpEntity<>(headers);
-//
-//			ResponseEntity<String> responseEntity = restTemplate.exchange(DELETE_SERVICE_ADD + favId, HttpMethod.DELETE,
-//					requestEntity, String.class);
-//			if (responseEntity.getStatusCode() == HttpStatus.OK) {
-//				return true;
-//			}
-//			return false;
-//		} catch (Exception e) {
-//			return false;
-//		}
-//	}
 
 }

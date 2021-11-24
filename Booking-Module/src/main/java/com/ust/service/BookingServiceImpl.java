@@ -1,5 +1,7 @@
 package com.ust.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,22 +40,6 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public boolean updateBooking(int bookingId,int vid) {
-
-		Booking b = repo.getByBookingId(bookingId);
-		Vehicle v =repos.getByVehicleId(vid);
-		if (v != null && b!= null ) {
-			b.setCarId(vid);
-			b.setCarName(v.getName());
-			b.setCarDetails(v.getDetails());
-			repo.save(b);
-			return true;
-		}
-		return false;
-
-	}
-
-	@Override
 	public boolean deleteBooking(int id) {
 		
 		Booking v = repo.getByBookingId(id);
@@ -65,8 +51,8 @@ public class BookingServiceImpl implements BookingService {
 	}
 
 	@Override
-	public Booking getbyuid(int id) {
-		Booking response = repo.getbyUserId(id);
+	public List<Booking> getbyuid(int id) {
+		List<Booking> response = repo.getByUserId(id);
 		return response;
 	}
-	}
+}

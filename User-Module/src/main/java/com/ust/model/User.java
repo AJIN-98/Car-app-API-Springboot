@@ -11,7 +11,7 @@ import com.sun.istack.NotNull;
 public class User {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	// @GeneratedValue(strategy = GenerationType.AUTO)
 	private int userId;
 	@NotNull
 	private String username;
@@ -21,13 +21,12 @@ public class User {
 	private String password;
 	@NotNull
 	private String address;
-
 	
 	public User() {
 		super();
 	}
 
-	public User( String username, String gmail, String password, String address) {
+	public User(String username, String gmail, String password, String address) {
 		super();
 		this.username = username;
 		this.gmail = gmail;

@@ -37,6 +37,11 @@ public FavouriteVehicle(int userId, int vehicleId, String vehicleName, String ve
 	this.vehicleStatus = vehicleStatus;
 }
 
+
+public void setFavId(int favId) {
+	this.favId = favId;
+}
+
 public int getUserId() {
 	return userId;
 }

@@ -9,7 +9,7 @@ import com.ust.filter.JwtFilter;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-@EnableSwagger2
+//@EnableSwagger2
 @SpringBootApplication
 public class UserApplication {
 
