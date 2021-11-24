@@ -96,46 +96,7 @@ public class UserControllerTest {
                 .andExpect(status().isConflict()).andDo(MockMvcResultHandlers.print());
 
     }
-//
-//    @Test
-//    public void deleteUserSuccess() throws Exception {
-//        when(userService.deleteUser("Jhon123")).thenReturn(true);
-//        mockMvc.perform(delete("/api/v1/user/Jhon123")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andDo(MockMvcResultHandlers.print());
-//
-//    }
-//
-//
-//    @Test
-//    public void deleteUserFailure() throws Exception {
-//        when(userService.deleteUser("Jhon123")).thenThrow(UserNotFoundException.class);
-//        mockMvc.perform(delete("/api/v1/user/Jhon123")
-//                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound())
-//                .andDo(MockMvcResultHandlers.print());
-//
-//    }
-//
-//
-//    @Test
-//    public void getByUserIdSuccess() throws Exception {
-//
-//        when(userService.getUserById("Jhon123")).thenReturn(user);
-//        mockMvc.perform(get("/api/v1/user/Jhon123").contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isOk())
-//                .andDo(MockMvcResultHandlers.print());
-//    }
-//
-//    @Test
-//    public void getByUserIdFAilure() throws Exception {
-//
-//        when(userService.getUserById("Jhon123")).thenThrow(UserNotFoundException.class);
-//        mockMvc.perform(get("/api/v1/user/Jhon123").contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isNotFound())
-//                .andDo(MockMvcResultHandlers.print());
-//    }
+
 
 	public static String asJsonString(final Object obj) {
 		try {
